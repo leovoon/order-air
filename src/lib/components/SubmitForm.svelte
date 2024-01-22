@@ -12,11 +12,12 @@
   import { toast } from "svelte-sonner";
   import { invalidateAll } from "$app/navigation";
   import { open } from "$lib/store";
+  import type { SvelteComponent } from "svelte";
 
   export let form: SuperValidated<FormSchema>;
 
   let audioBase64: string = "";
-
+  let submitButton: SvelteComponent;
   const options: FormOptions<FormSchema> = {
     SPA: true,
     resetForm: true,
@@ -94,9 +95,9 @@
   </Form.Field>
 
   <Drawer.Footer class="p-0 mt-4">
-    <Form.Button>Save</Form.Button>
+    <Form.Button size="lg">Save</Form.Button>
     <Drawer.Close asChild let:builder>
-      <Button builders={[builder]} variant="outline">Cancel</Button>
+      <Button builders={[builder]} variant="outline" size="lg">Cancel</Button>
     </Drawer.Close>
   </Drawer.Footer>
 </Form.Root>

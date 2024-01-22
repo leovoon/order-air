@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy, onMount } from "svelte";
+  import { createEventDispatcher, onDestroy, onMount } from "svelte";
   import Button from "$lib/components/ui/button/button.svelte";
   import { DotsHorizontal } from "radix-icons-svelte";
   import { blobToBase64 } from "$lib/utils";
@@ -23,6 +23,7 @@
       });
       const srcBlob = window.URL.createObjectURL(blob);
       (audio as HTMLAudioElement).src = srcBlob;
+      audio?.play();
     };
   });
 
@@ -40,6 +41,7 @@
       }
       mediaRecorder.start();
       mediaRecorder = mediaRecorder;
+      mediaArray = [];
     }
   }
 
@@ -47,6 +49,12 @@
     if (mediaRecorder) {
       mediaRecorder.stop();
       mediaRecorder = mediaRecorder;
+      const event = new FocusEvent("focusin", {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+      });
+      audio?.dispatchEvent(event);
     }
   }
 </script>

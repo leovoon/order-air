@@ -6,4 +6,4 @@
   $: setValue(value);
 </script>
 
-<input class="hidden" type="hidden" {value} {name} />
+<input tabindex="0" class="hidden" type="hidden" {value} {name} />
