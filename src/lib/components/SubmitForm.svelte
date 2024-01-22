@@ -69,7 +69,7 @@
   <Form.Field {config} name="photo">
     <Form.Item>
       <Form.Label>Photo</Form.Label>
-      <Form.Input type="file" />
+      <Form.Input type="file" accept="image/*" />
       <Form.Validation />
     </Form.Item>
   </Form.Field>
