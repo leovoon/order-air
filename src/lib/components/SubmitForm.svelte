@@ -57,7 +57,7 @@
   };
 </script>
 
-<Form.Root class="space-y-2" enctype="multipart/form-data" {form} debug={true} {options} schema={formSchema} let:config>
+<Form.Root class="space-y-2" enctype="multipart/form-data" {form} {options} schema={formSchema} let:config>
   <Form.Field {config} name="name">
     <Form.Item>
       <Form.Label>Name</Form.Label>
