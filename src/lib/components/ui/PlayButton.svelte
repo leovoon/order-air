@@ -1,16 +1,17 @@
 <script lang="ts">
   import { Play } from "radix-icons-svelte";
   import { onDestroy } from "svelte";
-  import { sound } from "svelte-sound";
+  // import { sound } from "svelte-sound";
+  import { Howl, Howler } from "howler";
 
   export let audio: string;
   let isPlaying = false;
 
   let button: HTMLButtonElement;
-  function onplay(id: string) {
+  function onplay(id: number) {
     isPlaying = true;
   }
-  function onend(id: string) {
+  function onend(id: number) {
     isPlaying = false;
   }
 </script>
@@ -18,12 +19,13 @@
 <button
   bind:this={button}
   class="h-9 px-4 py-2 border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground"
-  use:sound={{
-    src: audio,
-    events: ["click", "dblclick"],
-    html5: true,
-    onplay,
-    onend,
+  on:click={() => {
+    const sound = new Howl({
+      src: [audio],
+      onplay: (id) => onplay(id),
+      onend: (id) => onend(id),
+    });
+    sound.play();
   }}
   disabled={isPlaying}
 >

@@ -32,6 +32,7 @@
           const base64 = (await blobToBase64(file)) as string;
           form.data.photo = base64;
           form.data.audio = audioBase64;
+          //@ts-ignore id is autoincrement
           db.OrderItems.add({
             name: form.data.name,
             photo: form.data.photo,
