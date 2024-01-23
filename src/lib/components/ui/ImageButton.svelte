@@ -1,33 +1,52 @@
 <script lang="ts">
-  import { longPressAction } from "svelte-legos";
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
   import { db } from "$lib/db";
   import { toast } from "svelte-sonner";
   import { invalidate } from "$app/navigation";
+  import Button from "$lib/components/ui/button/button.svelte";
+  import { onMount } from "svelte";
 
-  let duration = 3000;
   let dialogOpen = false;
-
+  let count = 10;
   export let src: string;
   export let name: string;
   export let id: number;
 
   async function handleDelete(id: number) {
+    if (count > 1) {
+      count = count - 1;
+      return;
+    }
+    actuallyDeleteItem(id);
+  }
+
+  async function actuallyDeleteItem(id: number) {
     try {
       await db.OrderItems.delete(id);
       toast.success("Item deleted.");
       await invalidate("/");
     } catch (error) {
       toast.error(`Error deleting item.`);
-      console.log(error);
     }
   }
 </script>
 
-<AlertDialog.Root bind:open={dialogOpen}>
+<AlertDialog.Root
+  bind:open={dialogOpen}
+  closeOnEscape
+  onOpenChange={() => {
+    count = 10;
+  }}
+>
   <AlertDialog.Content>
     <AlertDialog.Header>
-      <AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
+      <AlertDialog.Title
+        >{count > 5
+          ? "Delete this item?"
+          : count === 1
+            ? "Your last chance"
+            : "Are you absolutely sure?"}</AlertDialog.Title
+      >
       <AlertDialog.Description>
         <p>
           Delete <b>{name}</b>?
@@ -36,21 +55,26 @@
     </AlertDialog.Header>
     <AlertDialog.Footer>
       <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-      <AlertDialog.Action on:click={() => handleDelete(id)}>Delete</AlertDialog.Action>
+      <Button
+        variant="destructive"
+        style="width: {(count / 10) * 100}%"
+        class="transition-all"
+        on:click={() => handleDelete(id)}>Delete</Button
+      >
     </AlertDialog.Footer>
   </AlertDialog.Content>
 </AlertDialog.Root>
 
 <button
-  use:longPressAction={duration}
-  on:longpress={() => {
+  on:click={() => {
     dialogOpen = true;
   }}
+  class="z-10 relative"
 >
   <img
     {src}
     alt={name}
-    class="rounded aspect-square object-cover pointer-events-none ios-select-none"
+    class="z-0 rounded aspect-square object-cover pointer-events-none ios-select-none"
     on:contextmenu|preventDefault={() => false}
   />
 </button>
