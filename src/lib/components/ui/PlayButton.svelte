@@ -1,8 +1,6 @@
 <script lang="ts">
-  import { Play } from "radix-icons-svelte";
-  import { onDestroy } from "svelte";
-  // import { sound } from "svelte-sound";
-  import { Howl, Howler } from "howler";
+  import { Play, Stop } from "radix-icons-svelte";
+  import { Howl } from "howler";
 
   export let audio: string;
   let isPlaying = false;
@@ -29,5 +27,9 @@
   }}
   disabled={isPlaying}
 >
-  <Play />
+  {#if isPlaying}
+    <Stop />
+  {:else}
+    <Play />
+  {/if}
 </button>

@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-patchedDependencies:
-  svelte-sound@0.6.0:
-    hash: 6hrv6n6xhfgx7stqrzghavgi2i
-    path: patches/svelte-sound@0.6.0.patch
-
 dependencies:
   '@types/howler':
     specifier: ^2.2.11
@@ -43,9 +38,6 @@ dependencies:
   svelte-sonner:
     specifier: ^0.3.11
     version: 0.3.11(svelte@4.2.9)
-  svelte-sound:
-    specifier: ^0.6.0
-    version: 0.6.0(patch_hash=6hrv6n6xhfgx7stqrzghavgi2i)
   sveltekit-superforms:
     specifier: ^1.13.4
     version: 1.13.4(@sveltejs/kit@2.4.1)(svelte@4.2.9)(zod@3.22.4)
@@ -1670,13 +1662,6 @@ packages:
     dependencies:
       svelte: 4.2.9
     dev: false
-
-  /svelte-sound@0.6.0(patch_hash=6hrv6n6xhfgx7stqrzghavgi2i):
-    resolution: {integrity: sha512-n0JJwWwNEmsGntSN9oe57yevHrIg8Lw3tW2XsfdrDhJXwrbAAmLvbBJQ0Z3TFqONUW7+OWb5Yx04CSCo7q56fA==}
-    dependencies:
-      howler: 2.2.4
-    dev: false
-    patched: true
 
   /svelte@4.2.9:
     resolution: {integrity: sha512-hsoB/WZGEPFXeRRLPhPrbRz67PhP6sqYgvwcAs+gWdSQSvNDw+/lTeUJSWe5h2xC97Fz/8QxAOqItwBzNJPU8w==}

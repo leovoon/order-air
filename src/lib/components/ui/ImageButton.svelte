@@ -4,7 +4,7 @@
   import { toast } from "svelte-sonner";
   import { invalidate } from "$app/navigation";
   import Button from "$lib/components/ui/button/button.svelte";
-  import { onMount } from "svelte";
+  import { Eraser } from "radix-icons-svelte";
 
   let dialogOpen = false;
   let count = 10;
@@ -59,8 +59,14 @@
         variant="destructive"
         style="width: {(count / 10) * 100}%"
         class="transition-all"
-        on:click={() => handleDelete(id)}>Delete</Button
+        on:click={() => handleDelete(id)}
       >
+        {#if count === 1}
+          Yes
+        {:else}
+          Delete
+        {/if}
+      </Button>
     </AlertDialog.Footer>
   </AlertDialog.Content>
 </AlertDialog.Root>
