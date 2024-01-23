@@ -2,7 +2,7 @@
 import Dexie, { type Table } from "dexie";
 
 export interface OrderItem {
-  id?: number;
+  id: number;
   name: string;
   photo: string;
   audio: string;

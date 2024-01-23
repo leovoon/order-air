@@ -4,10 +4,12 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  svelte-sound@0.6.0:
+    hash: 6hrv6n6xhfgx7stqrzghavgi2i
+    path: patches/svelte-sound@0.6.0.patch
+
 dependencies:
-  '@types/recordrtc':
-    specifier: ^5.6.14
-    version: 5.6.14
   bits-ui:
     specifier: ^0.15.1
     version: 0.15.1(svelte@4.2.9)
@@ -26,6 +28,9 @@ dependencies:
   radix-icons-svelte:
     specifier: ^1.2.1
     version: 1.2.1
+  svelte-legos:
+    specifier: ^0.2.2
+    version: 0.2.2(svelte@4.2.9)
   svelte-persisted-store:
     specifier: ^0.9.0
     version: 0.9.0(svelte@4.2.9)
@@ -34,7 +39,7 @@ dependencies:
     version: 0.3.11(svelte@4.2.9)
   svelte-sound:
     specifier: ^0.6.0
-    version: 0.6.0
+    version: 0.6.0(patch_hash=6hrv6n6xhfgx7stqrzghavgi2i)
   sveltekit-superforms:
     specifier: ^1.13.4
     version: 1.13.4(@sveltejs/kit@2.4.1)(svelte@4.2.9)(zod@3.22.4)
@@ -583,10 +588,6 @@ packages:
     resolution: {integrity: sha512-Sk/uYFOBAB7mb74XcpizmH0KOR2Pv3D2Hmrh1Dmy5BmK3MpdSa5kqZcg6EKBdklU0bFXX9gCfzvpnyUehrPIuA==}
     dev: true
 
-  /@types/recordrtc@5.6.14:
-    resolution: {integrity: sha512-Reiy1sl11xP0r6w8DW3iQjc1BgXFyNC7aDuutysIjpFoqyftbQps9xPA2FoBkfVXpJM61betgYPNt+v65zvMhA==}
-    dev: false
-
   /acorn@8.11.3:
     resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
     engines: {node: '>=0.4.0'}
@@ -723,6 +724,10 @@ packages:
   /caniuse-lite@1.0.30001579:
     resolution: {integrity: sha512-u5AUVkixruKHJjw/pj9wISlcMpgFWzSrczLZbrqBSxukQixmg0SJ5sZTpvaFvxU0HoQKd4yoyAogyrAz9pzJnA==}
     dev: true
+
+  /canvas-confetti@1.9.2:
+    resolution: {integrity: sha512-6Xi7aHHzKwxZsem4mCKoqP6YwUG3HamaHHAlz1hTNQPCqXhARFpSXnkC9TWlahHY5CG6hSL5XexNjxK8irVErg==}
+    dev: false
 
   /chokidar@3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
@@ -1356,6 +1361,15 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
+  /prism-svelte@0.5.0:
+    resolution: {integrity: sha512-db91Bf3pRGKDPz1lAqLFSJXeW13mulUJxhycysFpfXV5MIK7RgWWK2E5aPAa71s8TCzQUXxF5JOV42/iOs6QkA==}
+    dev: false
+
+  /prismjs@1.29.0:
+    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
+    engines: {node: '>=6'}
+    dev: false
+
   /queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
@@ -1570,6 +1584,17 @@ packages:
     dependencies:
       svelte: 4.2.9
 
+  /svelte-legos@0.2.2(svelte@4.2.9):
+    resolution: {integrity: sha512-HTVkCIqhrxdy+OpXjxGr/4xIJEGv4d2cRQwTjm0SYfLw/YF1I1l/TQR59nb2WvjccnO8TNFNTvAWP5pgXQnU+w==}
+    peerDependencies:
+      svelte: ^4.0.0
+    dependencies:
+      canvas-confetti: 1.9.2
+      prism-svelte: 0.5.0
+      prismjs: 1.29.0
+      svelte: 4.2.9
+    dev: false
+
   /svelte-persisted-store@0.9.0(svelte@4.2.9):
     resolution: {integrity: sha512-GoK160xYmwBX0AiZDrh7AvdapcI8xCjb8r5xyWX+eJL2iw8o6xIxqjTHSmrrhUgOWj7rYc8EXiRMf9U9ryaGVg==}
     engines: {node: '>=0.14'}
@@ -1636,11 +1661,12 @@ packages:
       svelte: 4.2.9
     dev: false
 
-  /svelte-sound@0.6.0:
+  /svelte-sound@0.6.0(patch_hash=6hrv6n6xhfgx7stqrzghavgi2i):
     resolution: {integrity: sha512-n0JJwWwNEmsGntSN9oe57yevHrIg8Lw3tW2XsfdrDhJXwrbAAmLvbBJQ0Z3TFqONUW7+OWb5Yx04CSCo7q56fA==}
     dependencies:
       howler: 2.2.4
     dev: false
+    patched: true
 
   /svelte@4.2.9:
     resolution: {integrity: sha512-hsoB/WZGEPFXeRRLPhPrbRz67PhP6sqYgvwcAs+gWdSQSvNDw+/lTeUJSWe5h2xC97Fz/8QxAOqItwBzNJPU8w==}

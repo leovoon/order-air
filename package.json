@@ -25,13 +25,13 @@
   },
   "type": "module",
   "dependencies": {
-    "@types/recordrtc": "^5.6.14",
     "bits-ui": "^0.15.1",
     "clsx": "^2.1.0",
     "dexie": "4.0.1-beta.6",
     "formsnap": "^0.4.2",
     "mode-watcher": "^0.1.2",
     "radix-icons-svelte": "^1.2.1",
+    "svelte-legos": "^0.2.2",
     "svelte-persisted-store": "^0.9.0",
     "svelte-sonner": "^0.3.11",
     "svelte-sound": "^0.6.0",
@@ -40,5 +40,10 @@
     "tailwind-variants": "^0.1.20",
     "vaul-svelte": "^0.1.0",
     "zod": "^3.22.4"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "svelte-sound@0.6.0": "patches/svelte-sound@0.6.0.patch"
+    }
   }
 }

@@ -10,16 +10,11 @@
   import { db } from "$lib/db";
   import { toggleMode } from "mode-watcher";
   import { open } from "$lib/store";
-  import { onMount } from "svelte";
-  import type { ComponentType, SvelteComponent } from "svelte";
+  import ImageButton from "$lib/components/ui/ImageButton.svelte";
+  import PlayButton from "$lib/components/ui/PlayButton.svelte";
 
   export let data;
   let items = liveQuery(() => db.OrderItems.reverse().toArray());
-  let PlayButton: ComponentType<SvelteComponent>;
-
-  onMount(async () => {
-    PlayButton = (await import("$lib/components/ui/playButton.svelte")).default;
-  });
 </script>
 
 <header class="p-2 flex gap-2">
@@ -52,19 +47,17 @@
     {#if $items.length === 0}
       <p class="text-center">No items yet.</p>
     {:else}
-      {#each $items as { name, photo, audio, cold }}
+      {#each $items as { id, name, photo, audio, cold }}
         <Card.Root>
           <Card.Header>
             <Card.Title>{name}</Card.Title>
           </Card.Header>
           <Card.Content>
-            <div>
-              <img src={photo} alt={name} class="rounded aspect-square object-cover" />
-            </div>
+            <ImageButton src={photo} {name} {id} />
           </Card.Content>
           <Card.Footer>
             <div class="w-full flex gap-2 justify-center">
-              <svelte:component this={PlayButton} {audio} />
+              <PlayButton {audio} />
               {#if cold}
                 <Cold />
               {:else}
