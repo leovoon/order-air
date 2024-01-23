@@ -1,7 +1,7 @@
 <script lang="ts">
   import * as Form from "$lib/components/ui/form";
-  import CustomInput from "./ui/form/custom-input.svelte";
-  import { formSchema, type FormSchema } from "../../routes/schema";
+  import CustomInput from "../lib/components/ui/form/custom-input.svelte";
+  import { formSchema, type FormSchema } from "../lib/schema";
   import type { SuperValidated } from "sveltekit-superforms";
   import * as Drawer from "$lib/components/ui/drawer";
   import AudioRecorder from "$lib/components/ui/audio-recorder/AudioRecorder.svelte";
@@ -10,8 +10,9 @@
   import { db } from "$lib/db";
   import { blobToBase64 } from "$lib/utils";
   import { toast } from "svelte-sonner";
-  import { invalidate, invalidateAll } from "$app/navigation";
+  import { invalidate } from "$app/navigation";
   import { open } from "$lib/store";
+  import { Camera } from "radix-icons-svelte";
 
   export let form: SuperValidated<FormSchema>;
 
@@ -65,7 +66,12 @@
   <Form.Field {config} name="photo">
     <Form.Item>
       <Form.Label>Photo</Form.Label>
-      <Form.Input type="file" accept="image/*" />
+      <div class="relative min-h-20">
+        <div class="absolute inset-0 grid place-items-center mt-4 text-muted-foreground">
+          <Camera size={30} />
+        </div>
+        <Form.Input class="h-full absolute inset-0 bg-transparent" type="file" accept="image/*" />
+      </div>
       <Form.Validation />
     </Form.Item>
   </Form.Field>
