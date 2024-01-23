@@ -17,7 +17,6 @@
   export let form: SuperValidated<FormSchema>;
 
   let audioBase64: string = "";
-  let submitButton: SvelteComponent;
   const options: FormOptions<FormSchema> = {
     SPA: true,
     resetForm: true,
@@ -26,32 +25,29 @@
       if (photoInputEle && photoInputEle.files) {
         const file = photoInputEle.files[0];
 
-        if (!file) {
+        if (!file || !form.valid) {
           return;
         }
 
-        const base64 = (await blobToBase64(file)) as string;
-        form.data.photo = base64;
-        form.data.audio = audioBase64;
-
-        if (form.valid) {
-          try {
-            db.OrderItems.add({
-              name: form.data.name,
-              photo: form.data.photo,
-              audio: form.data.audio,
-              cold: form.data.cold,
-            });
-            toast.success("Saved successfully", {
-              dismissable: true,
-              duration: 3000,
-            });
-            await invalidateAll();
-            $open = false;
-            console.log($open);
-          } catch (e) {
-            toast.error("Failed to save");
-          }
+        try {
+          const base64 = (await blobToBase64(file)) as string;
+          form.data.photo = base64;
+          form.data.audio = audioBase64;
+          db.OrderItems.add({
+            name: form.data.name,
+            photo: form.data.photo,
+            audio: form.data.audio,
+            cold: form.data.cold,
+          });
+          toast.success("Saved successfully", {
+            dismissable: true,
+            duration: 3000,
+          });
+          await invalidateAll();
+          $open = false;
+          console.log($open);
+        } catch (e) {
+          toast.error("Failed to save");
         }
       }
     },
