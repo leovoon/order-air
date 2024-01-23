@@ -47,5 +47,18 @@
     dialogOpen = true;
   }}
 >
-  <img {src} alt={name} class="rounded aspect-square object-cover" />
+  <img
+    {src}
+    alt={name}
+    class="rounded aspect-square object-cover pointer-events-none ios-select-none"
+    on:contextmenu|preventDefault={() => false}
+  />
 </button>
+
+<style>
+  .ios-select-none {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+</style>
