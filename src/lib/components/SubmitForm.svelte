@@ -10,9 +10,8 @@
   import { db } from "$lib/db";
   import { blobToBase64 } from "$lib/utils";
   import { toast } from "svelte-sonner";
-  import { invalidateAll } from "$app/navigation";
+  import { invalidate, invalidateAll } from "$app/navigation";
   import { open } from "$lib/store";
-  import type { SvelteComponent } from "svelte";
 
   export let form: SuperValidated<FormSchema>;
 
@@ -43,9 +42,8 @@
             dismissable: true,
             duration: 3000,
           });
-          await invalidateAll();
+          await invalidate("/");
           $open = false;
-          console.log($open);
         } catch (e) {
           toast.error("Failed to save");
         }

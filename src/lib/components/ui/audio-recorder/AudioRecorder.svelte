@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher, onDestroy, onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import Button from "$lib/components/ui/button/button.svelte";
   import { DotsHorizontal } from "radix-icons-svelte";
   import { blobToBase64 } from "$lib/utils";

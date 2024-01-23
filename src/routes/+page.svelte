@@ -1,28 +1,25 @@
-<script lang="ts">
+<script script lang="ts">
   import Button from "$lib/components/ui/button/button.svelte";
   import * as Card from "$lib/components/ui/card";
   import * as Drawer from "$lib/components/ui/drawer";
   import Cold from "$lib/components/ui/icon/Cold.svelte";
   import Hot from "$lib/components/ui/icon/Hot.svelte";
-  import { Moon, Play, Plus, Stop, Sun } from "radix-icons-svelte";
+  import { Moon, Plus, Sun } from "radix-icons-svelte";
   import SubmitForm from "$lib/components/SubmitForm.svelte";
   import { liveQuery } from "dexie";
   import { db } from "$lib/db";
-  import { sound } from "svelte-sound";
   import { toggleMode } from "mode-watcher";
   import { open } from "$lib/store";
+  import { onMount } from "svelte";
+  import type { ComponentType, SvelteComponent } from "svelte";
 
   export let data;
-  let items = liveQuery(() => db.OrderItems.toArray());
-  let isPlaying = false;
-  let plyBtn: HTMLButtonElement;
+  let items = liveQuery(() => db.OrderItems.reverse().toArray());
+  let PlayButton: ComponentType<SvelteComponent>;
 
-  function onplay(id: string, name: string) {
-    isPlaying = true;
-  }
-  function onend(id: string) {
-    isPlaying = false;
-  }
+  onMount(async () => {
+    PlayButton = (await import("$lib/components/ui/playButton.svelte")).default;
+  });
 </script>
 
 <header class="p-2 flex gap-2">
@@ -67,27 +64,7 @@
           </Card.Content>
           <Card.Footer>
             <div class="w-full flex gap-2 justify-center">
-              <button
-                class="h-9 px-4 py-2 border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground"
-                use:sound={{
-                  src: audio,
-                  events: ["click"],
-                  html5: true,
-                  onplay,
-                  onend,
-                }}
-                disabled={isPlaying}
-                bind:this={plyBtn}
-                on:dblclick={() => {
-                  if (plyBtn) {
-                    plyBtn.stop();
-                    isPlaying = false;
-                  }
-                }}
-              >
-                <Play />
-              </button>
-
+              <svelte:component this={PlayButton} {audio} />
               {#if cold}
                 <Cold />
               {:else}
