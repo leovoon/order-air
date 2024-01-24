@@ -4,7 +4,6 @@
   import { toast } from "svelte-sonner";
   import { invalidate } from "$app/navigation";
   import Button from "$lib/components/ui/button/button.svelte";
-  import { Eraser } from "radix-icons-svelte";
 
   let dialogOpen = false;
   let count = 10;
@@ -25,6 +24,7 @@
       await db.OrderItems.delete(id);
       toast.success("Item deleted.");
       await invalidate("/");
+      dialogOpen = false;
     } catch (error) {
       toast.error(`Error deleting item.`);
     }

@@ -10,11 +10,12 @@
   import { db } from "$lib/db";
   import { blobToBase64 } from "$lib/utils";
   import { toast } from "svelte-sonner";
-  import { invalidate } from "$app/navigation";
+  import { goto, invalidate } from "$app/navigation";
   import { open } from "$lib/store";
   import { Camera } from "radix-icons-svelte";
 
   export let form: SuperValidated<FormSchema>;
+  export let drawerMode = true;
 
   let audioBase64: string = "";
   const options: FormOptions<FormSchema> = {
@@ -45,6 +46,7 @@
             duration: 3000,
           });
           await invalidate("/");
+          if (!drawerMode) await goto("/");
           $open = false;
         } catch (e) {
           toast.error("Failed to save");
@@ -54,7 +56,14 @@
   };
 </script>
 
-<Form.Root class="space-y-2" enctype="multipart/form-data" {form} {options} schema={formSchema} let:config>
+<Form.Root
+  class="space-y-2 {!drawerMode ? 'w-full  flex flex-col  justify-start p-8' : ''}"
+  enctype="multipart/form-data"
+  {form}
+  {options}
+  schema={formSchema}
+  let:config
+>
   <Form.Field {config} name="name">
     <Form.Item>
       <Form.Label>Name</Form.Label>
@@ -95,10 +104,22 @@
     </Form.Item>
   </Form.Field>
 
-  <Drawer.Footer class="p-0 mt-4">
+  {#if drawerMode}
+    <Drawer.Footer class="p-0 mt-4">
+      <Form.Button size="lg">Save</Form.Button>
+      <Drawer.Close asChild let:builder>
+        <Button builders={[builder]} variant="outline" size="lg">Cancel</Button>
+      </Drawer.Close>
+    </Drawer.Footer>
+  {:else}
     <Form.Button size="lg">Save</Form.Button>
-    <Drawer.Close asChild let:builder>
-      <Button builders={[builder]} variant="outline" size="lg">Cancel</Button>
-    </Drawer.Close>
-  </Drawer.Footer>
+    <Button
+      variant="outline"
+      size="lg"
+      on:click={() => {
+        goto("/");
+        $open = false;
+      }}>Cancel</Button
+    >
+  {/if}
 </Form.Root>
