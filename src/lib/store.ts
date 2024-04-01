@@ -1,3 +1,4 @@
 import { persisted } from "svelte-persisted-store";
 
-export const open = persisted("open", false);
+export const dialogOpen = persisted("dialogOpen", false);
+export const drawerOpen = persisted("drawerOpen", false);

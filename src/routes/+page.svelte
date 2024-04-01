@@ -13,12 +13,21 @@
   let items = liveQuery(() => db.OrderItems.reverse().toArray());
 </script>
 
-<div class="flex flex-col h-[100dvh] p-2 bg-white dark:bg-black" data-vaul-drawer-wrapper>
+<div
+  class="flex flex-col h-[100dvh] p-2 bg-white dark:bg-black"
+  data-vaul-drawer-wrapper
+>
   <Header form={data.form} />
-  <main class="{$items ? '' : 'flex-grow'} grid auto-cols-fr grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2 my-2">
+  <main
+    class="{$items
+      ? ''
+      : 'flex-grow '} grid auto-cols-fr grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2 my-2"
+  >
     {#if $items}
       {#if $items.length === 0}
-        <p class="col-span-2 h-full grid place-items-center p-2">No items yet.</p>
+        <p class="col-span-2 h-full grid place-items-center p-2">
+          No items yet.
+        </p>
       {:else}
         {#each $items as { id, name, photo, audio, cold }}
           <Card.Root class="self-baseline">

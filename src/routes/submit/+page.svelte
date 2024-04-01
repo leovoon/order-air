@@ -4,4 +4,4 @@
   export let data;
 </script>
 
-<SubmitForm form={data.form} drawerMode={false} />
+<SubmitForm form={data.form}  />
