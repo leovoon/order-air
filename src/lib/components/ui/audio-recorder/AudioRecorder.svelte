@@ -60,8 +60,8 @@
 </script>
 
 <div class="flex flex-col space-y-1.5 p-2">
-  <div class="flex justify-center items-center gap-2">
-    <audio bind:this={audio} controls />
+  <div class="flex flex-wrap justify-center items-center gap-2">
+    <audio bind:this={audio} controls class="flex-1" />
     <Button
       class="gap-2 inline-flex"
       variant={!isRecording ? "destructive" : "default"}
